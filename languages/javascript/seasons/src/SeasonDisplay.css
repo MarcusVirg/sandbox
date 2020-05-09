@@ -1,0 +1,23 @@
+.season-display {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    padding: 25px;
+}
+.icon-left {
+    align-self: flex-start;
+}
+.icon-right {
+    align-self: flex-end;
+}
+
+.winter {
+    color: rgb(94, 176, 204);
+    background-color: rgb(214, 238, 247);
+}
+.summer {
+    color: orange;
+    background-color: rgb(241, 227, 200);
+}

@@ -1,0 +1,4 @@
+/new_dist
+*.o
+web_server
+server/web_server_log
