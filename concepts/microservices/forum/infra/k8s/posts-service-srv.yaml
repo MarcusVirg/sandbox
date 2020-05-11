@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-service-srv
+spec:
+  type: NodePort
+  selector:
+    app: posts-service
+  ports:
+    - name: posts-service
+      protocol: TCP
+      port: 4000 # Port of the Node Port service itself
+      targetPort: 4000 # Port that application is listening for traffic on

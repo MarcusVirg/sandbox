@@ -23,7 +23,7 @@ app.post('/posts/:id/comments', async (req, res) => {
   comments.push(comment)
   commentsByPostId[postId] = comments
 
-  await axios.post('http://localhost:4005/events', {
+  await axios.post('http://event-bus-srv:4005/events', {
     type: 'COMMENT_CREATED',
     data: comment
   })
@@ -39,7 +39,7 @@ app.post('/events', async (req, res) => {
         c => c.id === data.id
       )
       moderatedComment.status = data.status
-      await axios.post('http://localhost:4005/events', {
+      await axios.post('http://event-bus-srv:4005/events', {
         type: 'COMMENT_UPDATED',
         data: moderatedComment
       })

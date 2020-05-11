@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: posts-service-depl
+spec:
+  replicas: 1
+  selector: # Find all pods with a label of app: posts-service
+    matchLabels:
+      app: posts-service
+  template: # Specify exact config of a pod like in the .old file
+    metadata:
+      labels:
+        app: posts-service
+    spec: # config options for pod we are making
+      containers:
+        - name: posts-service
+          image: marcusvirg/posts-service:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-service-cip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: posts-service
+  ports:
+    - name: posts-service
+      protocol: TCP
+      port: 4000
+      targetPort: 4000

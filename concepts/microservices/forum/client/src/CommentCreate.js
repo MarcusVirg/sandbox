@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react'
+import axios from 'axios'
 
 export default ({ postId }) => {
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState('')
 
   const onSubmit = async event => {
-    event.preventDefault();
+    event.preventDefault()
 
-    await axios.post(`http://localhost:4001/posts/${postId}/comments`, {
+    await axios.post(`http://exoforum.com/posts/${postId}/comments`, {
       content
-    });
+    })
 
-    setContent('');
-  };
+    setContent('')
+  }
 
   return (
     <div>
@@ -28,5 +28,5 @@ export default ({ postId }) => {
         <button className="btn btn-primary">Submit</button>
       </form>
     </div>
-  );
-};
+  )
+}

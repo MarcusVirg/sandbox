@@ -13,7 +13,7 @@ app.post('/events', async (req, res) => {
   const { type, data } = req.body
   switch (type) {
     case 'COMMENT_CREATED':
-      await axios.post('http://localhost:4005/events', {
+      await axios.post('http://event-bus-srv:4005/events', {
         type: 'COMMENT_MODERATED',
         data: {
           ...data,
