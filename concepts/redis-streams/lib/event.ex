@@ -18,9 +18,9 @@ defmodule RedisStreams.Event do
       "event_id",
       event.event_id,
       "type",
-      event.event_type,
+      event.type,
       "created_at",
-      event.event_created_at,
+      event.created_at,
       "payload",
       event.payload
     ]

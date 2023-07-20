@@ -5,6 +5,7 @@ defmodule RedisStreams.Store do
 
   def start_link(redis_endpoint: redis_endpoint) do
     {:ok, conn} = Redix.start_link(redis_endpoint, name: :redix)
+    IO.inspect(conn)
 
     GenServer.start_link(__MODULE__, conn, name: __MODULE__)
   end
@@ -33,13 +34,13 @@ defmodule RedisStreams.Store do
   def handle_call({:next_event_id, account_id}, _from, conn),
     do: ["HINCRBY", "account:#{account_id}", "seq:event", "1"] |> issue_command(conn)
 
-  def handle_call({:log_event, account_id, event}, _from, conn) do
+  def handle_call({:log_event, event}, _from, conn) do
     event
     |> Event.record_list()
-    |> build_xadd(["XADD", "account:#{account_id}:log", event.event_id])
+    |> build_xadd(["XADD", "account:#{event.account_id}:log", event.event_id])
     |> issue_command(conn)
 
-    {:reply, :ok, conn}
+    {:reply, event, conn}
   end
 
   def handle_call({:read_event, account_id, last_event_id}, _from, conn) do

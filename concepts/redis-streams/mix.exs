@@ -23,7 +23,6 @@ defmodule RedisStreams.MixProject do
   defp deps do
     [
       {:bandit, "~> 1.0-pre"},
-      {:cors_plug, "~> 3.0"},
       {:dotenvy, "~> 0.8.0"},
       {:plug, "~> 1.14"},
       {:redix, "~> 1.1"},

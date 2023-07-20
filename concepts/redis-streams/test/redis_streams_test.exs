@@ -1,8 +1,11 @@
 defmodule RedisStreamsTest do
   use ExUnit.Case
-  doctest RedisStreams
 
-  test "greets the world" do
-    assert RedisStreams.hello() == :world
+  alias RedisStreams.Store
+
+  test "can send a redis command" do
+    Store.next_account_id() |> IO.inspect()
+
+    assert true
   end
 end

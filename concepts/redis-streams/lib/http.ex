@@ -3,7 +3,6 @@ defmodule RedisStreams.Http do
   alias RedisStreams.Socket
 
   plug Plug.Logger
-  plug CORSPlug
   plug :match
   plug :dispatch
 
@@ -28,6 +27,7 @@ defmodule RedisStreams.Socket.Server do
   alias RedisStreams.Store
 
   def init(account_id: account_id) do
+    account_id |> IO.inspect(label: "Socket initialize")
     consumer_pid = Consume.subscribe(account_id, 0)
 
     {:ok, {account_id, 0, consumer_pid}}
@@ -45,7 +45,9 @@ defmodule RedisStreams.Socket.Server do
       created_at: DateTime.utc_now() |> DateTime.to_iso8601(),
       payload: "Some payload for account(#{recipient_aid}) from account(#{aid})"
     }
-    |> Store.log_event(account_id)
+    |> Store.log_event(recipient_aid)
+
+    {:ok, state}
   end
 
   def handle_info({:on_event, event}, state) do
