@@ -3,26 +3,31 @@ defmodule RedisStreams.Event do
   use TypedStruct
 
   typedstruct do
-    field :account_id, pos_integer()
-    field :event_id, pos_integer()
+    field :event_id, String.t()
+    field :session_id, pos_integer()
     field :type, String.t()
-    # ISO8601
-    field :created_at, String.t()
     field :payload, binary()
   end
 
   def record_list(%Event{} = event) do
     [
-      "account_id",
-      event.account_id,
-      "event_id",
-      event.event_id,
+      "session_id",
+      event.session_id,
       "type",
       event.type,
-      "created_at",
-      event.created_at,
       "payload",
       event.payload
     ]
+  end
+
+  def to_string(%Event{} = event) do
+    """
+    Event(
+      event_id: #{event.event_id},
+      session_id: #{event.session_id},
+      type: #{event.type},
+      payload: #{event.payload}
+    )
+    """
   end
 end
