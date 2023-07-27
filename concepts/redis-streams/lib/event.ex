@@ -9,17 +9,6 @@ defmodule RedisStreams.Event do
     field :payload, binary()
   end
 
-  def record_list(%Event{} = event) do
-    [
-      "session_id",
-      event.session_id,
-      "type",
-      event.type,
-      "payload",
-      event.payload
-    ]
-  end
-
   def to_string(%Event{} = event) do
     """
     Event(

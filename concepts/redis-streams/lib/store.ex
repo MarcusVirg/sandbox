@@ -6,7 +6,7 @@ defmodule RedisStreams.Store do
 
   def log_event(%Event{} = event, account_id) do
     event
-    |> Event.record_list()
+    |> event_to_entry()
     |> build_xadd(["XADD", "account:#{account_id}:log", "*"])
     |> issue_command()
   end
@@ -15,16 +15,27 @@ defmodule RedisStreams.Store do
     ["XREAD", "STREAMS", "account:#{account_id}:log", last_event_id]
     |> IO.inspect()
     |> issue_command()
-    |> stream_entries_to_events()
+    |> entries_to_events()
   end
 
   defp issue_command(command), do: Redix.command!(:redix, command)
 
-  defp build_xadd(record_list, command), do: [command | record_list] |> List.flatten()
+  defp build_xadd(entry, command), do: [command | entry] |> List.flatten()
 
-  defp stream_entries_to_events(nil), do: nil
+  defp event_to_entry(%Event{} = event) do
+    [
+      "session_id",
+      event.session_id,
+      "type",
+      event.type,
+      "payload",
+      event.payload
+    ]
+  end
 
-  defp stream_entries_to_events([[_stream, entries]]) do
+  defp entries_to_events(nil), do: nil
+
+  defp entries_to_events([[_stream, entries]]) do
     entries
     |> Enum.map(fn [entry_id, entry] ->
       [{:event_id, entry_id} | list_to_keyword_list(entry)]
@@ -36,6 +47,5 @@ defmodule RedisStreams.Store do
 
   defp list_to_keyword_list([key, value | tail]) do
     [{String.to_existing_atom(key), value} | list_to_keyword_list(tail)]
-    # [{key, value} | list_to_keyword_list(tail)]
   end
 end
