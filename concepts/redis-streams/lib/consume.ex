@@ -21,7 +21,7 @@ defmodule RedisStreams.Consume do
     do: events |> tap(&Process.send(pid, {:on_events, &1}, [:noconnect]))
 
   defp last_event_id(nil, event_id), do: event_id
-  defp last_event_id(events, _), do: events |> List.last() |> Map.get(:event_id)
+  defp last_event_id(events, _), do: events |> List.last() |> Map.get(:id)
 
   defp throttle(_), do: Process.sleep(1000)
 end

@@ -1,31 +1,26 @@
 defmodule RedisStreams.Store do
   alias RedisStreams.Event
 
-  def next_account_id(),
-    do: ["INCR", "seq:account"] |> issue_command()
-
   def log_event(%Event{} = event, account_id) do
     event
     |> event_to_entry()
-    |> build_xadd(["XADD", "account:#{account_id}:log", "*"])
-    |> issue_command()
+    |> build_xadd(account_id)
+    |> send_command()
   end
 
   def read_events(account_id, last_event_id) do
     ["XREAD", "STREAMS", "account:#{account_id}:log", last_event_id]
-    |> IO.inspect()
-    |> issue_command()
+    |> send_command()
     |> entries_to_events()
   end
 
-  defp issue_command(command), do: Redix.command!(:redix, command)
+  defp send_command(command), do: Redix.command!(:redix, command)
 
-  defp build_xadd(entry, command), do: [command | entry] |> List.flatten()
+  defp build_xadd(entry, account_id),
+    do: ["XADD", "account:#{account_id}:log", "*" | entry]
 
   defp event_to_entry(%Event{} = event) do
     [
-      "session_id",
-      event.session_id,
       "type",
       event.type,
       "payload",
@@ -38,9 +33,10 @@ defmodule RedisStreams.Store do
   defp entries_to_events([[_stream, entries]]) do
     entries
     |> Enum.map(fn [entry_id, entry] ->
-      [{:event_id, entry_id} | list_to_keyword_list(entry)]
+      [{:id, entry_id} | list_to_keyword_list(entry)]
     end)
     |> Enum.map(fn event -> struct(Event, event) end)
+    |> IO.inspect(label: "New Events")
   end
 
   defp list_to_keyword_list([]), do: []

@@ -7,17 +7,16 @@ defmodule RedisStreams.Socket do
     account_id |> IO.inspect(label: "Socket initialized for account")
     consumer_pid = Consume.subscribe(account_id, 0)
 
-    {:ok, {account_id, 0, consumer_pid}}
+    {:ok, {account_id, consumer_pid}}
   end
 
   def handle_in({"ping", [opcode: :text]}, state) do
     {:push, {:text, "pong"}, state}
   end
 
-  def handle_in({"event:" <> recipient_aid, [opcode: :text]}, {aid, _, _} = state) do
+  def handle_in({"event:" <> recipient_aid, [opcode: :text]}, {aid, _} = state) do
     %Event{
-      session_id: 1,
-      type: "ACCOUNT_EVENT",
+      type: "SOME_EVENT",
       payload: "Some payload for account(#{recipient_aid}) from account(#{aid})"
     }
     |> Store.log_event(recipient_aid)
@@ -25,16 +24,11 @@ defmodule RedisStreams.Socket do
     {:ok, state}
   end
 
-  def handle_info({:on_events, nil}, state), do: {:ok, state}
-
   def handle_info({:on_events, events}, state) do
     events
-    # |> IO.inspect()
     |> Enum.map(fn event -> {:text, Event.to_string(event)} end)
     |> then(&{:push, &1, state})
   end
 
-  def terminate(_reason, {_, _, consumer_pid}) do
-    Process.exit(consumer_pid, :kill)
-  end
+  def handle_info(_, state), do: {:ok, state}
 end
