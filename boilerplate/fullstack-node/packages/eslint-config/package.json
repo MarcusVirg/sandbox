@@ -1,0 +1,21 @@
+{
+	"name": "@repo/eslint-config",
+	"type": "module",
+	"version": "0.1.0",
+	"private": true,
+	"license": "UNLICENSED",
+	"files": [
+		"node.js",
+		"react.js"
+	],
+	"peerDependencies": {
+		"@eslint/js": "^9.9.1",
+		"@typescript-eslint/parser": "^8.2.0",
+		"@typescript-eslint/eslint-plugin": "^8.2.0",
+		"eslint": "^9.9.1",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-prettier": "5.2.1",
+		"prettier": "3.3.3",
+		"typescript": "^5.5.4"
+	}
+}

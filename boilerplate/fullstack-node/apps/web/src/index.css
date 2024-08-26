@@ -1,0 +1,252 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body,
+#root {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.multi-line-truncate {
+	display: -webkit-box;
+	-webkit-line-clamp: var(--lines, 3);
+	-webkit-box-orient: vertical;
+	white-space: normal;
+	overflow: hidden;
+}
+
+/* Remove the following if not using Radix */
+.radix-themes {
+	width: 100%;
+	height: 100%;
+}
+
+:root,
+.light,
+.light-theme {
+	--blue-1: #fbfdff;
+	--blue-2: #f5f9fe;
+	--blue-3: #e9f3fe;
+	--blue-4: #dbebff;
+	--blue-5: #cbe1fb;
+	--blue-6: #b9d4f4;
+	--blue-7: #a1c3eb;
+	--blue-8: #7eabe0;
+	--blue-9: #5a95d8;
+	--blue-10: #5289c7;
+	--blue-11: #3873b3;
+	--blue-12: #203650;
+
+	--blue-a1: #0080ff04;
+	--blue-a2: #0066e60a;
+	--blue-a3: #0074f416;
+	--blue-a4: #0072ff24;
+	--blue-a5: #006cec34;
+	--blue-a6: #0063d746;
+	--blue-a7: #005dc95e;
+	--blue-a8: #0059c281;
+	--blue-a9: #005bc3a5;
+	--blue-a10: #0051adad;
+	--blue-a11: #004c9ec7;
+	--blue-a12: #001937df;
+
+	--blue-contrast: #fff;
+	--blue-surface: #f3f8fecc;
+	--blue-indicator: #5a95d8;
+	--blue-track: #5a95d8;
+}
+
+@supports (color: color(display-p3 1 1 1)) {
+	@media (color-gamut: p3) {
+		:root,
+		.light,
+		.light-theme {
+			--blue-1: oklch(99.3% 0.003 252.8);
+			--blue-2: oklch(98.1% 0.007 252.8);
+			--blue-3: oklch(95.9% 0.019 252.8);
+			--blue-4: oklch(93.4% 0.032 252.8);
+			--blue-5: oklch(90.2% 0.043 252.8);
+			--blue-6: oklch(86.1% 0.053 252.8);
+			--blue-7: oklch(80.6% 0.067 252.8);
+			--blue-8: oklch(73% 0.092 252.8);
+			--blue-9: oklch(65.9% 0.118 252.8);
+			--blue-10: oklch(61.9% 0.112 252.8);
+			--blue-11: oklch(54.7% 0.118 252.8);
+			--blue-12: oklch(32.8% 0.053 252.8);
+
+			--blue-a1: color(display-p3 0.024 0.514 1 / 0.016);
+			--blue-a2: color(display-p3 0.024 0.349 0.784 / 0.036);
+			--blue-a3: color(display-p3 0.008 0.408 0.902 / 0.079);
+			--blue-a4: color(display-p3 0.008 0.369 0.941 / 0.13);
+			--blue-a5: color(display-p3 0.008 0.357 0.878 / 0.189);
+			--blue-a6: color(display-p3 0.004 0.325 0.788 / 0.255);
+			--blue-a7: color(display-p3 0.004 0.302 0.725 / 0.342);
+			--blue-a8: color(display-p3 0.004 0.294 0.702 / 0.471);
+			--blue-a9: color(display-p3 0 0.294 0.71 / 0.593);
+			--blue-a10: color(display-p3 0 0.259 0.62 / 0.628);
+			--blue-a11: color(display-p3 0 0.235 0.561 / 0.722);
+			--blue-a12: color(display-p3 0 0.075 0.188 / 0.855);
+
+			--blue-contrast: #fff;
+			--blue-surface: color(display-p3 0.957 0.973 0.992 / 0.8);
+			--blue-indicator: oklch(65.9% 0.118 252.8);
+			--blue-track: oklch(65.9% 0.118 252.8);
+		}
+	}
+}
+
+.dark,
+.dark-theme {
+	--blue-1: #0c1218;
+	--blue-2: #131921;
+	--blue-3: #18283b;
+	--blue-4: #193350;
+	--blue-5: #223f60;
+	--blue-6: #2e4d71;
+	--blue-7: #3c5f86;
+	--blue-8: #4a74a3;
+	--blue-9: #5a95d8;
+	--blue-10: #4e89cb;
+	--blue-11: #8cbaef;
+	--blue-12: #cfe3fb;
+
+	--blue-a1: #0031f108;
+	--blue-a2: #2e83f412;
+	--blue-a3: #3994ff2d;
+	--blue-a4: #2f91fe44;
+	--blue-a5: #449bff55;
+	--blue-a6: #59a6ff67;
+	--blue-a7: #68affd7e;
+	--blue-a8: #6db1fe9d;
+	--blue-a9: #68aefed6;
+	--blue-a10: #5eaafec8;
+	--blue-a11: #95c6ffee;
+	--blue-a12: #d2e7fffb;
+
+	--blue-contrast: #fff;
+	--blue-surface: #15213180;
+	--blue-indicator: #5a95d8;
+	--blue-track: #5a95d8;
+}
+
+@supports (color: color(display-p3 1 1 1)) {
+	@media (color-gamut: p3) {
+		.dark,
+		.dark-theme {
+			--blue-1: oklch(17.8% 0.016 252.8);
+			--blue-2: oklch(21.1% 0.018 252.8);
+			--blue-3: oklch(27.2% 0.042 252.8);
+			--blue-4: oklch(31.5% 0.062 252.8);
+			--blue-5: oklch(36.3% 0.067 252.8);
+			--blue-6: oklch(41.5% 0.07 252.8);
+			--blue-7: oklch(47.6% 0.076 252.8);
+			--blue-8: oklch(54.8% 0.089 252.8);
+			--blue-9: oklch(65.9% 0.118 252.8);
+			--blue-10: oklch(61.9% 0.118 252.8);
+			--blue-11: oklch(77.5% 0.092 252.8);
+			--blue-12: oklch(90.8% 0.04 252.8);
+
+			--blue-a1: color(display-p3 0 0.22 0.973 / 0.026);
+			--blue-a2: color(display-p3 0.251 0.557 0.988 / 0.064);
+			--blue-a3: color(display-p3 0.302 0.604 0.996 / 0.169);
+			--blue-a4: color(display-p3 0.278 0.569 0.996 / 0.257);
+			--blue-a5: color(display-p3 0.361 0.616 0.996 / 0.32);
+			--blue-a6: color(display-p3 0.431 0.659 1 / 0.391);
+			--blue-a7: color(display-p3 0.486 0.698 1 / 0.479);
+			--blue-a8: color(display-p3 0.502 0.71 1 / 0.597);
+			--blue-a9: color(display-p3 0.486 0.698 1 / 0.816);
+			--blue-a10: color(display-p3 0.455 0.682 1 / 0.761);
+			--blue-a11: color(display-p3 0.639 0.792 1 / 0.912);
+			--blue-a12: color(display-p3 0.847 0.91 1 / 0.975);
+
+			--blue-contrast: #fff;
+			--blue-surface: color(display-p3 0.086 0.125 0.18 / 0.5);
+			--blue-indicator: oklch(65.9% 0.118 252.8);
+			--blue-track: oklch(65.9% 0.118 252.8);
+		}
+	}
+}
+
+.toast-viewport {
+	--viewport-padding: 25px;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	display: flex;
+	flex-direction: column;
+	padding: var(--viewport-padding);
+	gap: 10px;
+	width: 390px;
+	max-width: 100vw;
+	margin: 0;
+	list-style: none;
+	z-index: 999;
+	outline: none;
+}
+
+/* .toast-root {
+	display: grid;
+	grid-template-areas: 'title action' 'description action';
+	grid-template-columns: auto max-content;
+	column-gap: 15px;
+	align-items: center;
+} */
+.toast-root[data-state='open'] {
+	animation: slideIn 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+.toast-root[data-state='closed'] {
+	animation: hide 100ms ease-in;
+}
+.toast-root[data-swipe='move'] {
+	transform: translateX(var(--radix-toast-swipe-move-x));
+}
+.toast-root[data-swipe='cancel'] {
+	transform: translateX(0);
+	transition: transform 200ms ease-out;
+}
+.toast-root[data-swipe='end'] {
+	animation: swipeOut 100ms ease-out;
+}
+
+@keyframes hide {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes slideIn {
+	from {
+		transform: translateX(calc(100% + var(--viewport-padding)));
+	}
+	to {
+		transform: translateX(0);
+	}
+}
+
+@keyframes swipeOut {
+	from {
+		transform: translateX(var(--radix-toast-swipe-end-x));
+	}
+	to {
+		transform: translateX(calc(100% + var(--viewport-padding)));
+	}
+}
+
+.rt-ScrollAreaScrollbar {
+	z-index: 999;
+}

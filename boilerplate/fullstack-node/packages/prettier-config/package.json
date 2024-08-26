@@ -1,0 +1,16 @@
+{
+	"name": "@repo/prettier-config",
+	"type": "module",
+	"version": "0.1.0",
+	"private": true,
+	"license": "UNLICENSED",
+	"files": [
+		"prettier.config.js",
+		"prettier.config.d.ts"
+	],
+	"main": "prettier.config.js",
+	"types": "prettier.config.d.ts",
+	"peerDependencies": {
+		"prettier": "^3.3.3"
+	}
+}

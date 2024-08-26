@@ -1,0 +1,31 @@
+name: Web CI/CD
+
+on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - apps/web/**
+  pull_request:
+    branches:
+      - 'main'
+    paths:
+      - apps/web/**
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+    with:
+      app: web
+
+  cd:
+    if: ${{ github.event_name == 'push' }}
+    needs: ci
+    uses: ./.github/workflows/cd.yml
+    with:
+      app: web
+      environment: preview
+    secrets:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      VERCEL_ACCESS_TOKEN: ${{ secrets.VERCEL_ACCESS_TOKEN }}

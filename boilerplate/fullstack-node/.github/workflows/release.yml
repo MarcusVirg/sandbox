@@ -1,0 +1,25 @@
+name: Release
+# Trigger on GitHub release
+# Pass in app name then build and deploy that specific app to production
+
+on:
+  release:
+    types: [published]
+
+# TODO: Make this better
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+    with:
+      app: ${{ (startsWith(github.event.release.name, 'Web') && 'web') || '' }}
+
+  cd:
+    needs: ci
+    uses: ./.github/workflows/cd.yml
+    with:
+      app: ${{ (startsWith(github.event.release.name, 'Web') && 'web') || '' }}
+      environment: production
+    secrets:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ (startsWith(github.event.release.name, 'Web') && secrets.VERCEL_PROJECT_ID) || '' }}
+      VERCEL_ACCESS_TOKEN: ${{ secrets.VERCEL_ACCESS_TOKEN }}

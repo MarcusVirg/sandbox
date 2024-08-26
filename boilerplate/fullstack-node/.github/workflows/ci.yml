@@ -1,0 +1,38 @@
+name: Integration
+
+on:
+  workflow_call:
+    inputs:
+      app:
+        type: string
+        required: true
+
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    # To use Remote Caching, uncomment the next lines and follow the steps below.
+    # env:
+    #  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+    #  TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+    #  TURBO_REMOTE_ONLY: true
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Lint App
+        run: npm run ${{ inputs.app }}:lint
+
+      - name: Build App
+        run: npm run ${{ inputs.app }}:build
+
+      - name: Test App
+        run: npm run ${{ inputs.app }}:test

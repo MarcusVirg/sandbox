@@ -1,0 +1,14 @@
+{
+	"name": "@repo/typescript-config",
+	"type": "module",
+	"version": "0.1.0",
+	"private": true,
+	"license": "UNLICENSED",
+	"files": [
+		"tsconfig.base.json",
+		"tsconfig.app.json"
+	],
+	"peerDependencies": {
+		"typescript": "^5.5.4"
+	}
+}

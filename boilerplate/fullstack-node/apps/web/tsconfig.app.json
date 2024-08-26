@@ -1,0 +1,10 @@
+{
+	"extends": "@repo/typescript-config/tsconfig.app.json",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["src/*"]
+		}
+	},
+	"include": ["src"]
+}
