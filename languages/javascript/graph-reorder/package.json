@@ -1,0 +1,19 @@
+{
+	"name": "graph-reorder",
+	"type": "module",
+	"version": "1.0.0",
+	"main": "main.js",
+	"scripts": {
+		"start": "tsx main.ts",
+		"test": "node --import tsx --test ./**/*.test.ts"
+	},
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"dependencies": {},
+	"devDependencies": {
+		"@types/node": "^22.5.4",
+		"prettier": "^3.3.3",
+		"tsx": "^4.19.1"
+	}
+}
